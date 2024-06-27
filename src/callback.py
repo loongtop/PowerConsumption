@@ -1,7 +1,10 @@
 '''
     File name: callback.py
     Purpose: Contains callback functions for handling interactions in the Dash app.
-    Author: 
+    Authors:
+        - Yuashun Cui - 2404877
+        - Samira Nazari - 2310647
+        - Mohamad Hadi Ajami - 2227105
     Course: INF8808
     Python Version: 3.8
 
@@ -38,7 +41,6 @@ def get_date_from_click(click_data):
         point = click_data['points'][0]
         week_of_year = point['x']
         day_of_week = point['y']
-        month_name = point['customdata'].split()[0]  # Assume customdata is 'Month Year' format
 
         # Map day name to integer
         day_of_week_index = day_map[day_of_week]

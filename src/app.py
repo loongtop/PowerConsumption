@@ -1,9 +1,11 @@
-
 # -*- coding: utf-8 -*-
 
 '''
     File name: app.py
-    Author: 
+    Authors:
+        - Yuashun Cui - 2404877
+        - Samira Nazari - 2310647
+        - Mohamad Hadi Ajami - 2227105
     Course: INF8808
     Python Version: 3.8
 
@@ -27,7 +29,6 @@ import callback as cb
 
 from dash.dependencies import Input, Output, State
 from globals import df, df_daily, df_hourly
-
 
 # Initialize the Dash app
 app = dash.Dash(__name__)
@@ -84,14 +85,19 @@ app.layout = html.Div(
             },
             children=[
                 html.A('The Trends of Energy Consumption', href='#explanation-line-chart', className='nav-link'),
-                html.A('Daily and Hourly Energy Consumption', href='#Daily-and-Hourly-Energy-Consumption', className='nav-link'),
-                html.A('Electricity consumption percentage per zone', href='#Electricity-consumption-percentage', className='nav-link'),
-                html.A('The Weather Condition Parameters', href='#Weather-Condition-Parameters', className = 'nav-link'),
-                html.A('Impact of weather on energy consumption', href='#Impact-weather-on-energy-consumption', className='nav-link'),
-                html.A('Correlation of Six Parameters: Weather Conditions and Zones', href='#Correlation-of-Six-Parameters', className = 'nav-link'),
+                html.A('Daily and Hourly Energy Consumption', href='#Daily-and-Hourly-Energy-Consumption',
+                       className='nav-link'),
+                html.A('Electricity Consumption Percentage Per Zone', href='#Electricity-consumption-percentage',
+                       className='nav-link'),
+                html.A('The Weather Condition Parameters', href='#Weather-Condition-Parameters', className='nav-link'),
+                html.A('Impact of Weather On Energy Consumption', href='#Impact-weather-on-energy-consumption',
+                       className='nav-link'),
+                html.A('Correlation of Six Parameters: Weather Conditions and Zones',
+                       href='#Correlation-of-Six-Parameters', className='nav-link'),
             ]
         ),
-        # Explanation before the figures
+
+        # Line chart
         html.Div(
             children=[
                 html.Div(
@@ -104,7 +110,8 @@ app.layout = html.Div(
                     },
                     children=[
                         html.H2("The Trends of Energy Consumption "),
-                        html.P("This visualization corresponds to a line chart, displaying the daily consumed energy values for each zone separately. The x-axis represents the date (from January 1, 2017, to December 30, 2017), while the y-axis indicates the energy quantities. Each zone's energy consumption is depicted by a distinct line and color. Additionally, the total daily consumed energy for all three zones is shown by another line in the figure for the year 2017. The legend is provided to indicate the colors used for each zone. "),
+                        html.P(
+                            "This visualization corresponds to a line chart, displaying the daily consumed energy values for each zone separately. The x-axis represents the date (from January 1, 2017, to December 30, 2017), while the y-axis indicates the energy quantities. Each zone's energy consumption is depicted by a distinct line and color. Additionally, the total daily consumed energy for all three zones is shown by another line in the figure for the year 2017. The legend is provided to indicate the colors used for each zone. "),
                     ],
                 ),
                 html.Div(
@@ -139,6 +146,22 @@ app.layout = html.Div(
                 ),
             ]
         ),
+        #  1 Conclusion
+        html.Div(
+            id='conclusion1',
+            style={
+                'width': '95%',
+                'maxWidth': '1200px',
+                'margin': '20px 0',
+                'textAlign': 'left'  # Align text center for better presentation
+            },
+            children=[
+                html.H2("Overview"),
+                html.P(
+                    "This section examines the trend of energy consumption from January 2017 to the end of the year. During summer periods, especially from July to the middle of August, a notable increase in power consumption is observed. Consequently, we can infer that energy usage reaches its peak during summer. Conversely, we notice a significant drop in energy consumption from the end of July until the beginning of September. Following that period, there is a gradual drop until energy usage reaches its minimum level during winter, specifically from November until the end of December. On the flip side, we can observe that Zone 1 maintains the highest quantity throughout the year. Zone 2 and Zone 3 have roughly similar values until the end of June. From the end of June until the beginning of September, Zone 3 surpasses Zone 2. However, it loses its lead from September until the end of the year."),
+            ]
+        ),
+
         html.Div(
             children=[
                 html.Div(
@@ -151,7 +174,8 @@ app.layout = html.Div(
                     },
                     children=[
                         html.H2("Daily and Hourly Energy Consumption"),
-                        html.P("We visualize the energy consumption of each zone through a set of heatmaps, where each box represents a day of the year. The x-axis spans the months of the year from January to December, while the y-axis indicates the days of the week from Monday to Sunday. Each heatmap is labeled to show the energy consumption specific to the corresponding zone, and an additional heatmap aggregates the power consumption of all zones. A legend is included to explain the color scheme used in the heatmaps. This collection of heatmaps provides users with insights into the daily, weekly, monthly, and zone-specific variations in electricity usage. "),
+                        html.P(
+                            "We visualize the energy consumption of each zone through a set of heatmaps, where each box represents a day of the year. The x-axis spans the months of the year from January to December, while the y-axis indicates the days of the week from Monday to Sunday. Each heatmap is labeled to show the energy consumption specific to the corresponding zone, and an additional heatmap aggregates the power consumption of all zones. A legend is included to explain the color scheme used in the heatmaps. This collection of heatmaps provides users with insights into the daily, weekly, monthly, and zone-specific variations in electricity usage. "),
                     ]
                 ),
 
@@ -200,7 +224,8 @@ app.layout = html.Div(
                         'textAlign': 'left'  # Align text center for better presentation
                     },
                     children=[
-                        html.P("In this heat map, by clicking on each rectangle reveals a panel containing a bar chart. This bar chart depicts the hourly maximum energy usage for the chosen day, with the x-axis showing the hour number (1 to 24) and the y-axis representing the consumed quantity of energy. "),
+                        html.P(
+                            "In this heat map, by clicking on each rectangle reveals a panel containing a bar chart. This bar chart depicts the hourly maximum energy usage for the chosen day, with the x-axis showing the hour number (1 to 24) and the y-axis representing the consumed quantity of energy. "),
                     ]
                 ),
 
@@ -267,8 +292,106 @@ app.layout = html.Div(
                 ),
             ]
         ),
+        #  2 Conclusion
+        html.Div(
+            id='conclusion2',
+            style={
+                'width': '95%',
+                'maxWidth': '1200px',
+                'margin': '20px 0',
+                'textAlign': 'left'  # Align text center for better presentation
+            },
+            children=[
+                html.H2("Overview"),
+                html.P(
+                    "This section focuses on analyzing the trend of energy consumption from January 2017 to the end of the year. Across all diagrams, it's evident that July and August exhibit the highest electricity usage. An important aspect is that while the first visualization also depicts the trend of power consumption, these diagrams specifically highlight the magnitude of consumed energy and identify the days and hours with the maximum energy usage. This allows users to easily identify the days (by day name and month) with the highest energy levels in each zone, as well as pinpointing the specific hours and corresponding energy values that peak."),
+            ]
+        ),
 
-        #  Stacked bar chart and clustered bar chart
+        # Stacked bar chart and clustered bar chart
+        # html.Div(
+        #     children=[
+        #         html.Div(
+        #             id='Electricity-consumption-percentage',
+        #             style={
+        #                 'width': '100%',
+        #                 'maxWidth': '1200px',
+        #                 'margin': '20px 0',
+        #                 'textAlign': 'left'  # Align text center for better presentation
+        #             },
+        #             children=[
+        #                 html.H2("Electricity Consumption Percentage Per Zone "),
+        #                 html.P(
+        #                     "This part facilitates a clearer comparison between different zones. In Clustered bar chart, the x-axis represents the zone names, while the y-axis displays the power consumption values. Each zone is represented by a separate bar, and the percentage of each zone can be displayed on its corresponding bar. This visualization method provides an easy way for users to understand the distribution of electricity consumption across different zones. Additionally, a checkbox panel on the left side of the chart allows users to select one or multiple months, enabling them to observe the proportion of each zone's consumption for the chosen months. We offer users a detailed breakdown of each zone's proportion within selected months using a stacked bar chart. In this chart, the x-axis represents the month names, and the y-axis represents the power consumption quantities. Each bar in the chart illustrates the percentage of each zone within each month. ")
+        #             ]
+        #         ),
+        #
+        #         html.Div(
+        #             id='stacked-bar-charts',
+        #             style={
+        #                 'display': 'flex',
+        #                 'flexDirection': 'row',
+        #                 'width': '100%',
+        #                 'maxWidth': '1200px',
+        #                 'margin': '20px 0'
+        #             },
+        #             children=[
+        #                 html.Div(
+        #                     style={
+        #                         'width': '20%',
+        #                         'padding': '10px',
+        #                         'display': 'flex',
+        #                         'flexDirection': 'column',
+        #                         'justifyContent': 'flex-start'
+        #                     },
+        #                     children=[
+        #                         dcc.Checklist(
+        #                             id='month-checklist',
+        #                             options=[{'label': month, 'value': month} for month in
+        #                                      ["January", "February", "March", "April",
+        #                                       "May", "June", "July", "August",
+        #                                       "September", "October", "November",
+        #                                       "December"]],
+        #                             value=[],  # No months selected by default
+        #                             labelStyle={'display': 'block'}
+        #                         ),
+        #                         html.Button('Update Chart', id='update-button', n_clicks=0, style={'marginTop': '10px'})
+        #                     ]
+        #                 ),
+        #                 html.Div(
+        #                     style={
+        #                         'width': '80%',
+        #                         'padding': '10px'
+        #                     },
+        #                     children=[
+        #                         dcc.Graph(
+        #                             id='stacked-bar-chart',
+        #                             style={'width': '100%', 'height': '400px'},  # Adjusted height
+        #                             config={
+        #                                 'scrollZoom': False,
+        #                                 'showTips': False,
+        #                                 'showAxisDragHandles': False,
+        #                                 'doubleClick': False,
+        #                                 'displayModeBar': False
+        #                             }
+        #                         ),
+        #                         dcc.Graph(
+        #                             id='stacked-bar-chart-2',
+        #                             style={'width': '100%', 'height': '400px'},  # Adjusted height
+        #                             config={
+        #                                 'scrollZoom': False,
+        #                                 'showTips': False,
+        #                                 'showAxisDragHandles': False,
+        #                                 'doubleClick': False,
+        #                                 'displayModeBar': False
+        #                             }
+        #                         )
+        #                     ]
+        #                 )
+        #             ]
+        #         ),
+        #     ]
+        # ),
         html.Div(
             children=[
                 html.Div(
@@ -277,11 +400,12 @@ app.layout = html.Div(
                         'width': '100%',
                         'maxWidth': '1200px',
                         'margin': '20px 0',
-                        'textAlign': 'left'  # Align text center for better presentation
+                        'textAlign': 'left'  # Align text left for better presentation
                     },
                     children=[
-                        html.H2("Electricity consumption percentage per zone "),
-                        html.P("This part facilitates a clearer comparison between different zones. In Clustered bar chart, the x-axis represents the zone names, while the y-axis displays the power consumption values. Each zone is represented by a separate bar, and the percentage of each zone can be displayed on its corresponding bar. This visualization method provides an easy way for users to understand the distribution of electricity consumption across different zones. Additionally, a checkbox panel on the left side of the chart allows users to select one or multiple months, enabling them to observe the proportion of each zone's consumption for the chosen months. We offer users a detailed breakdown of each zone's proportion within selected months using a stacked bar chart. In this chart, the x-axis represents the month names, and the y-axis represents the power consumption quantities. Each bar in the chart illustrates the percentage of each zone within each month. ")
+                        html.H2("Electricity Consumption Percentage Per Zone "),
+                        html.P(
+                            "This part facilitates a clearer comparison between different zones. In Clustered bar chart, the x-axis represents the zone names, while the y-axis displays the power consumption values. Each zone is represented by a separate bar, and the percentage of each zone can be displayed on its corresponding bar. This visualization method provides an easy way for users to understand the distribution of electricity consumption across different zones. Additionally, a checkbox panel on the left side of the chart allows users to select one or multiple months, enabling them to observe the proportion of each zone's consumption for the chosen months. We offer users a detailed breakdown of each zone's proportion within selected months using a stacked bar chart. In this chart, the x-axis represents the month names, and the y-axis represents the power consumption quantities. Each bar in the chart illustrates the percentage of each zone within each month. ")
                     ]
                 ),
 
@@ -304,6 +428,17 @@ app.layout = html.Div(
                                 'justifyContent': 'flex-start'
                             },
                             children=[
+                                html.Div(
+                                    style={
+                                        'display': 'flex',
+                                        'flexDirection': 'row',
+                                        'marginBottom': '10px'
+                                    },
+                                    children=[
+                                        html.Button('Select All', id='select-all-button', n_clicks=0, style={'marginRight': '10px'}),
+                                        html.Button('Clear Selection', id='clear-selection-button', n_clicks=0)
+                                    ]
+                                ),
                                 dcc.Checklist(
                                     id='month-checklist',
                                     options=[{'label': month, 'value': month} for month in
@@ -351,6 +486,21 @@ app.layout = html.Div(
                 ),
             ]
         ),
+        #  3 Conclusion
+        html.Div(
+            id='conclusion3',
+            style={
+                'width': '95%',
+                'maxWidth': '1200px',
+                'margin': '20px 0',
+                'textAlign': 'left'  # Align text center for better presentation
+            },
+            children=[
+                html.H2("Overview"),
+                html.P(
+                    "This part examines the proportion of each zone in the overall energy consumption. Each zone is represented by a segment of a bar, with the size of each segment varying according to its energy consumption. As observed, Zone 1 has the highest electricity consumption."),
+            ]
+        ),
 
         # a scatter plot charts
         html.Div(
@@ -365,7 +515,8 @@ app.layout = html.Div(
                     },
                     children=[
                         html.H2("The Weather Condition Parameters "),
-                        html.P("This part, a scatter plot charts, provides insights into weather conditions (temperature, humidity, wind speed) by allowing users to visualize the correlations among different weather variables. Each plot displays data points (represented by small circles) positioned along quantitative x- and y-axes, with the x-axis and y-axis representing two of the three weather condition parameters. the user is provided with two combo boxes, allowing them to select one of three weather condition parameters for each axis. Upon selecting the parameters, the scatter plot updates to show the chosen parameters on the x and y axes, along with the corresponding data points. ")
+                        html.P(
+                            "This part, a scatter plot charts, provides insights into weather conditions (temperature, humidity, wind speed) by allowing users to visualize the correlations among different weather variables. Each plot displays data points (represented by small circles) positioned along quantitative x- and y-axes, with the x-axis and y-axis representing two of the three weather condition parameters. the user is provided with two combo boxes, allowing them to select one of three weather condition parameters for each axis. Upon selecting the parameters, the scatter plot updates to show the chosen parameters on the x and y axes, along with the corresponding data points. ")
                     ]
                 ),
 
@@ -381,6 +532,17 @@ app.layout = html.Div(
                     },
                     children=[
                         dcc.Dropdown(
+                            id='y-column-dropdown',
+                            options=[
+                                {'label': 'Humidity', 'value': 'Humidity'},
+                                {'label': 'Temperature', 'value': 'Temperature'},
+                                {'label': 'WindSpeed', 'value': 'WindSpeed'}
+                            ],
+                            value='WindSpeed',  # Default value
+                            placeholder="Select Y-axis column",
+                            style={'width': '45%'}
+                        ),
+                        dcc.Dropdown(
                             id='x-column-dropdown',
                             options=[
                                 {'label': 'Humidity', 'value': 'Humidity'},
@@ -391,21 +553,11 @@ app.layout = html.Div(
                             placeholder="Select X-axis column",
                             style={'width': '45%'}
                         ),
-                        dcc.Dropdown(
-                            id='y-column-dropdown',
-                            options=[
-                                {'label': 'Humidity', 'value': 'Humidity'},
-                                {'label': 'Temperature', 'value': 'Temperature'},
-                                {'label': 'WindSpeed', 'value': 'WindSpeed'}
-                            ],
-                            value='WindSpeed',  # Default value
-                            placeholder="Select Y-axis column",
-                            style={'width': '45%'}
-                        )
                     ]
                 ),
             ]
         ),
+
         # Placeholders for dynamic scatter plot and bubble plot
         html.Div(
             id='dynamic-scatter',
@@ -431,6 +583,22 @@ app.layout = html.Div(
                 )
             ]
         ),
+
+        #  4 Conclusion
+        html.Div(
+            id='conclusion4',
+            style={
+                'width': '95%',
+                'maxWidth': '1200px',
+                'margin': '20px 0',
+                'textAlign': 'left'  # Align text center for better presentation
+            },
+            children=[
+                html.H2("Overview"),
+                html.P(
+                    "This part examines the correlation among different weather parameters in Tetouan during 2017. The temperature ranges from 3 to 40 °C, humidity varies between 11 and 95, and wind speed ranges from 0 to 6. It appears that there is a correlation between temperature and humidity. However, there seems to be no relationship between wind speed and the other two parameters."),
+            ]
+        ),
         # Dropdowns for selecting columns for dynamic plots
         html.Div(
             children=[
@@ -443,8 +611,9 @@ app.layout = html.Div(
                         'textAlign': 'left'  # Align text to the left for better readability
                     },
                     children=[
-                        html.H2("Impact of weather on energy consumption "),
-                        html.P("This visualization, comprising a bubble plot, provides insights into how weather conditions impact electricity usage. It allows users to visually assess the influence of different weather variables—specifically temperature, humidity, and wind speed—on power consumption. This plot features two meteorological variables on the x and y axes. To depict the relationship between weather parameters and power consumption, the plots use circles of varying sizes, with the size representing energy quantity. Given the relatively small differences in energy consumption, colors are utilized to accentuate these distinctions. Each bubble corresponds to a day in the year 2017, with the bubble's size indicating the total energy consumption for that particular day. Users can select two weather parameters, after which the bubble plot axes adjust accordingly. Subsequently, the bubbles on the plot update to reflect electricity usage. ")
+                        html.H2("Impact of Weather On Energy Consumption "),
+                        html.P(
+                            "This visualization, comprising a bubble plot, provides insights into how weather conditions impact electricity usage. It allows users to visually assess the influence of different weather variables—specifically temperature, humidity, and wind speed—on power consumption. This plot features two meteorological variables on the x and y axes. To depict the relationship between weather parameters and power consumption, the plots use circles of varying sizes, with the size representing energy quantity. Given the relatively small differences in energy consumption, colors are utilized to accentuate these distinctions. Each bubble corresponds to a day in the year 2017, with the bubble's size indicating the total energy consumption for that particular day. Users can select two weather parameters, after which the bubble plot axes adjust accordingly. Subsequently, the bubbles on the plot update to reflect electricity usage. ")
                     ]
                 ),
 
@@ -461,17 +630,6 @@ app.layout = html.Div(
                     },
                     children=[
                         dcc.Dropdown(
-                            id='x-column-dropdown-1',
-                            options=[
-                                {'label': 'Humidity', 'value': 'Humidity'},
-                                {'label': 'Temperature', 'value': 'Temperature'},
-                                {'label': 'WindSpeed', 'value': 'WindSpeed'}
-                            ],
-                            value='Humidity',  # Default value
-                            placeholder="Select X-axis column",
-                            style={'width': '45%'}
-                        ),
-                        dcc.Dropdown(
                             id='y-column-dropdown-1',
                             options=[
                                 {'label': 'Humidity', 'value': 'Humidity'},
@@ -481,11 +639,23 @@ app.layout = html.Div(
                             value='WindSpeed',  # Default value
                             placeholder="Select Y-axis column",
                             style={'width': '45%'}
+                        ),
+                        dcc.Dropdown(
+                            id='x-column-dropdown-1',
+                            options=[
+                                {'label': 'Humidity', 'value': 'Humidity'},
+                                {'label': 'Temperature', 'value': 'Temperature'},
+                                {'label': 'WindSpeed', 'value': 'WindSpeed'}
+                            ],
+                            value='Humidity',  # Default value
+                            placeholder="Select X-axis column",
+                            style={'width': '45%'}
                         )
                     ]
                 ),
             ]
         ),
+
         # Bubble Scatter
         html.Div(
             id='dynamic-bubble',
@@ -512,7 +682,21 @@ app.layout = html.Div(
             ]
         ),
 
-
+        # 5 Conclusion
+        html.Div(
+            id='conclusion5',
+            style={
+                'width': '95%',
+                'maxWidth': '1200px',
+                'margin': '20px 0',
+                'textAlign': 'left'  # Align text center for better presentation
+            },
+            children=[
+                html.H2("Overview"),
+                html.P(
+                    "This section examines how different weather conditions affected energy usage in Tetouan in 2017. It's evident that average temperature significantly influences energy consumption. Specifically, higher temperatures above 25°C correlate with increased energy usage. However, the impact of wind speed on energy consumption appears less pronounced and is not clearly discernible."),
+            ]
+        ),
         # Dropdowns for selecting columns for dynamic plots
         html.Div(
             children=[
@@ -526,7 +710,8 @@ app.layout = html.Div(
                     },
                     children=[
                         html.H2("Correlation of Six Parameters: Weather Conditions and Zones"),
-                        html.P("The final visualization comprises scatter plot charts that offer insights into how weather conditions (temperature, humidity, wind speed) affect the energy usage of different zones separately. Each chart showcases data points (depicted as small circles) placed along quantitative x- and y-axes. The x-axis corresponds to one of the weather condition parameters, while the y-axis represents the energy values of three distinct zones. The points' colors are associated with the respective zones, with a legend included to clarify the color scheme.   ")
+                        html.P(
+                            "The final visualization comprises scatter plot charts that offer insights into how weather conditions (temperature, humidity, wind speed) affect the energy usage of different zones separately. Each chart showcases data points (depicted as small circles) placed along quantitative x- and y-axes. The x-axis corresponds to one of the weather condition parameters, while the y-axis represents the energy values of three distinct zones. The points' colors are associated with the respective zones, with a legend included to clarify the color scheme.   ")
                     ]
                 ),
 
@@ -581,21 +766,39 @@ app.layout = html.Div(
             ]
         ),
         html.Div([
-            html.Button("Scroll Up", id="scroll-to-top", n_clicks=0, style={
+            # Scroll Up button with a background image
+            html.Button("", id="scroll-to-top", n_clicks=0, style={
                 'position': 'fixed',
                 'bottom': '20px',
                 'right': '20px',
-                'padding': '20px 40px',
-                'background-color': '#007bff',
-                'color': 'white',
+                'width': '30px',  # Adjust size as needed
+                'height': '30px',  # Adjust size as needed
+                'background-image': 'url(/assets/scrollup.png)',  # Path to your scroll-up image
+                'background-size': 'contain',  # Make sure the image covers the button
+                'background-repeat': 'no-repeat',  # Prevent repeating the image
+                'background-position': 'center',  # Center the image
+                'background-color': 'transparent',  # Make background transparent
                 'border': 'none',
-                'border-radius': '5px',
                 'cursor': 'pointer',
-                'font-size': '20px',
-                'font-family': 'Arial, sans-serif',
                 'z-index': '1000'
             })
         ]),
+
+        # 6 Conclusion
+        html.Div(
+            id='conclusion6',
+            style={
+                'width': '95%',
+                'maxWidth': '1200px',
+                'margin': '20px 0',
+                'textAlign': 'left'  # Align text center for better presentation
+            },
+            children=[
+                html.H2("Overview"),
+                html.P(
+                    "The diagram clearly indicates that Zone 1 exhibits the highest energy consumption across all weather conditions among the three zones, with Zone 2 and Zone 3 following in second and third place, respectively."),
+            ]
+        ),
     ]
 )
 
@@ -627,13 +830,31 @@ def update_chart(n_clicks, selected_months):
         return go.Figure(), go.Figure()  # Return an empty figure initially
 
 
+# Callback for select all and clear selection buttons
+@app.callback(
+    Output('month-checklist', 'value'),
+    [Input('select-all-button', 'n_clicks'),
+     Input('clear-selection-button', 'n_clicks')],
+    [State('month-checklist', 'options')]
+)
+def select_all_or_clear(n_clicks_select_all, n_clicks_clear, options):
+    ctx = dash.callback_context
+    if not ctx.triggered:
+        return []
+    button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+
+    if button_id == 'select-all-button':
+        return [option['value'] for option in options]
+    elif button_id == 'clear-selection-button':
+        return []
+    return []
+
 @app.callback(
     Output('dynamic-scatter-3zones-plot', 'figure'),
     Input('x-column-dropdown-2', 'value')
 )
 def update_scatter_plot_3zones(x_column):
     if x_column:
-        print(x_column)
         fig = spc.get_ScatterPlotChart_3Zones(x_col=x_column)
         return fig
     return {}
@@ -661,8 +882,6 @@ def update_bar_chart(click_data):
     Output('dynamic-scatter-plot', 'figure'),
     [Input('x-column-dropdown', 'value'), Input('y-column-dropdown', 'value')]
 )
-
-
 def update_scatter_plot(x_column, y_column):
     if x_column and y_column:
         return spc.get_ScatterPlotChart(df_hourly, x_column, y_column)
@@ -677,3 +896,7 @@ def update_bubble_plot(x_column, y_column):
     if x_column and y_column:
         return bp.get_bubble_plot(df_daily, x_column, y_column)
     return {}
+
+
+if __name__ == '__main__':
+    app.run_server(debug=True)

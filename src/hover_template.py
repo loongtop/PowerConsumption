@@ -1,98 +1,123 @@
+# -*- coding: utf-8 -*-
+
+'''
+    File name: hover_template.py
+    Purpose: Contains functions to set hover templates for various chart types in the power consumption data visualization project.
+    Authors:
+        - Yuashun Cui - 2404877
+        - Samira Nazari - 2310647
+        - Mohamad Hadi Ajami - 2227105
+    Course: INF8808
+    Python Version: 3.8
+
+    This file provides the functionality to generate hover templates for line charts, heatmaps, bar charts, and scatter plots.
+'''
+
+# Dictionary for data units
+data_dict = {
+    'Humidity': '%',
+    'Temperature': 'ºC',
+    'WindSpeed': 'm/s'
+}
+
 def get_line_chart_hover_template():
     '''
-        Sets the template for the hover tooltips.
+        Sets the template for the hover tooltips in line charts.
         
-        
-
-        The labels' font is bold and the values are normal weight
-
-        returns:
-            The content of the tooltip
+        Returns:
+            str: The content of the tooltip.
     '''
-    # TODO : Generate tooltip
-
-    first_line = "<span style='font-weight:bold'>Date</span>: %{x}"
-    second_line = "<span style='font-weight:bold'>Power Consumption</span>: %{y}"
-    second_line += "<extra></extra>"
-
-    return "<br>".join([first_line, second_line])
-
+    hover_template = (
+        "<b>Date</b>: %{x}<br>"
+        "<b>Zone</b>: %{customdata[0]}<br>"
+        "<b>Power Consumption</b>: %{y:.2f} W<br>"
+        "<extra></extra>"
+    )
+    return hover_template
 
 def get_heatmap_hover_template():
     '''
-        Sets the template for the hover tooltips.
-        
-        
+        Sets the template for the hover tooltips in heatmaps.
 
-        The labels' font is bold and the values are normal weight
-
-        returns:
-            The content of the tooltip
+        Returns:
+            str: The content of the tooltip.
     '''
-    # TODO : Generate tooltip
-
-    first_line = "<span style='font-weight:bold'>Week of the Year</span>: %{x}"
-    second_line = "<span style='font-weight:bold'>Day of the Week</span>: %{y}"
-    third_line = "<span style='font-weight:bold'>Power Consumption</span>: %{z} W"
-    third_line += "<extra></extra>"
-
-    return (
-        '<b>Week</b>: %{x}<br>'
-        '<b>Day of Week</b>: %{y}<br>'
-        '<b>Power Consumption</b>: %{z:.2f} kW<extra></extra>'
+    hover_template = (
+        "<span style='font-weight:bold'>Date</span>: %{customdata[0]}<br>"
+        "<span style='font-weight:bold'>Week of the Year</span>: %{x}<br>"
+        "<span style='font-weight:bold'>Day of the Week</span>: %{y}<br>"
+        "<span style='font-weight:bold'>Power Consumption</span>: %{z} W<br>"
+        "<extra></extra>"
     )
-    return "<br>".join([first_line, second_line, third_line])
+    return hover_template
 
 def get_barchart_hover_template():
     '''
-        Sets the template for the hover tooltips.
-        
-        
+        Sets the template for the hover tooltips in bar charts.
 
-        The labels' font is bold and the values are normal weight
-
-        returns:
-            The content of the tooltip
+        Returns:
+            str: The content of the tooltip.
     '''
-    # TODO : Generate tooltip
-
-    first_line = "<span style='font-weight:bold'>Hour</span>: %{x}"
-    second_line = "<span style='font-weight:bold'>Power Concumption</span>: %{y}W"
-    second_line += "<extra></extra>"
-
-    return "<br>".join([first_line, second_line])
-
+    hover_template = (
+        "<span style='font-weight:bold'>Hour</span>: %{x}<br>"
+        "<span style='font-weight:bold'>Power Consumption</span>: %{y:.2f} W<br>"
+        "<extra></extra>"
+    )
+    return hover_template
 
 def get_scatterplotchart_hover_template(x_col, y_col):
     '''
-        Sets the template for the hover tooltips.
+        Sets the template for the hover tooltips in scatter plots.
         
-        
+        Parameters:
+            x_col (str): The name of the x-axis column.
+            y_col (str): The name of the y-axis column.
 
-        The labels' font is bold and the values are normal weight
-
-        returns:
-            The content of the tooltip
+        Returns:
+            str: The content of the tooltip.
     '''
-    # TODO : Generate tooltip
+    def get_unit(col):
+        return data_dict.get(col, '')
 
-    first_line =  f"<span style='font-weight:bold'>{x_col}"+"</span>: %{x}"
-    second_line =  f"<span style='font-weight:bold'>{y_col}"+"</span>: %{y}"
-    second_line += "<extra></extra>"
+    x_unit = get_unit(x_col)
+    y_unit = get_unit(y_col)
 
-    return "<br>".join([first_line, second_line])
+    hover_template = (
+        f"<span style='font-weight:bold'>{x_col}</span>: %{x:.2f}{x_unit}<br>"
+        f"<span style='font-weight:bold'>{y_col}</span>: %{y:.2f}{y_unit}<br>"
+        "<extra></extra>"
+    )
+    return hover_template
 
-def get_scatterplotchartforenergy_hover_template():
+def get_scatterplotchartforenergy_hover_template(x_col):
     '''
-        Sets the template for the hover tooltips.
-        
-        
+        Sets the template for the hover tooltips in scatter plots for energy data.
 
-        The labels' font is bold and the values are normal weight
+        Parameters:
+            x_col (str): The name of the x-axis column.
 
-        returns:
-            The content of the tooltip
+        Returns:
+            str: The content of the tooltip.
     '''
-    # TODO : Generate tooltip
+    templates = {
+        'Temperature': (
+            '<b>Date</b>: %{customdata}<br>'
+            '<b>Temperature</b>: %{x:.2f}ºC<br>'
+            '<b>Power Consumption</b>: %{y:.2f} W<br>'
+            '<extra></extra>'
+        ),
+        'Humidity': (
+            '<b>Date</b>: %{customdata}<br>'
+            '<b>Humidity</b>: %{x:.2f}%<br>'
+            '<b>Power Consumption</b>: %{y:.2f} W<br>'
+            '<extra></extra>'
+        ),
+        'WindSpeed': (
+            '<b>Date</b>: %{customdata}<br>'
+            '<b>Wind Speed</b>: %{x:.2f} m/s<br>'
+            '<b>Power Consumption</b>: %{y:.2f} W<br>'
+            '<extra></extra>'
+        )
+    }
+    return templates.get(x_col, '')
 
-    return '<b>Date</b>: %{customdata}<br><b>Temperature</b>: %{x}<br><b>Power Consumption</b>: %{y}<extra></extra>'

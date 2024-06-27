@@ -1,7 +1,10 @@
 '''
     File name: HeatMap.py
     Purpose: Contains functions to create heatmaps for visualizing power consumption data.
-    Author: 
+    Authors:
+        - Yuashun Cui - 2404877
+        - Samira Nazari - 2310647
+        - Mohamad Hadi Ajami - 2227105
     Course: INF8808
     Python Version: 3.8
 
@@ -25,12 +28,12 @@ def get_heatmap(DailyData, zone_col, title_suffix):
         Figure: Plotly Figure object representing the heatmap for the specified zone.
     """
     # Filter data for the specified zone
-    zone_data = DailyData[['week', 'DayName', 'DayOfYear', 'MonthName', zone_col]]
+    zone_data = DailyData[['date', 'week', 'DayName', 'DayOfYear', 'MonthName', zone_col]]
 
     # Ensure unique combinations of 'DayOfYear' and 'week'
     zone_data_unique = zone_data.drop_duplicates(subset=['week', 'DayOfYear'])
     zone_data_unique['MonthYear'] = zone_data_unique['MonthName'] + ' ' + (
-        zone_data_unique['DayOfYear'] // 1000).astype(str)
+            zone_data_unique['DayOfYear'] // 1000).astype(str)
     unique_months = zone_data_unique.groupby('MonthYear')['week'].min().reset_index()
 
     # Create the heatmap
@@ -38,9 +41,17 @@ def get_heatmap(DailyData, zone_col, title_suffix):
         z=zone_data_unique[zone_col],
         x=zone_data_unique['week'],
         y=zone_data_unique['DayName'],
-        customdata=zone_data_unique['MonthYear'],
+        customdata=zone_data_unique[['date', 'DayOfYear', 'week', 'DayName']],
         colorscale='Viridis',
-        colorbar=dict(title='Power Consumption'),
+        colorbar=dict(title='Power Consumption(W)'),
+        hovertemplate=(
+                '<b>Date:</b> %{customdata[0]}<br>' +
+                '<b>Day of Year:</b> %{customdata[1]}<br>' +
+                '<b>Week:</b> %{customdata[2]}<br>' +
+                '<b>Day:</b> %{customdata[3]}<br>' +
+                '<b>Power Consumption:</b> %{z} W<br>' +
+                '<extra></extra>'
+        )
     ))
 
     # Update the layout
@@ -55,5 +66,4 @@ def get_heatmap(DailyData, zone_col, title_suffix):
         yaxis=dict(fixedrange=True)  # Disables zoom on y-axis
     )
 
-    fig.update(data=[{'hovertemplate': hover.get_heatmap_hover_template()}])
     return fig

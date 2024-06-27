@@ -3,7 +3,10 @@
 '''
     File name: preprocess.py
     Purpose: Contains functions to preprocess the data used in the visualization.
-    Author: 
+    Authors:
+        - Yuashun Cui - 2404877
+        - Samira Nazari - 2310647
+        - Mohamad Hadi Ajami - 2227105
     Course: INF8808
     Python Version: 3.8
 

@@ -3,7 +3,10 @@
 '''
     File name: ScatterPlotChart.py
     Purpose: Contains functions to create scatter plot charts for visualizing power consumption data.
-    Author: 
+    Authors:
+        - Yuashun Cui - 2404877
+        - Samira Nazari - 2310647
+        - Mohamad Hadi Ajami - 2227105
     Course: INF8808
     Python Version: 3.8
 
@@ -12,8 +15,8 @@
 
 import plotly.express as px
 import hover_template as hover
-import preprocess as pp
 from globals import df
+
 
 # Function to create a scatter plot chart based on user-specified columns
 def get_ScatterPlotChart(DailyData, x_col, y_col):
@@ -55,6 +58,7 @@ def get_ScatterPlotChart(DailyData, x_col, y_col):
 
     return fig
 
+
 def get_ScatterPlotChart_3Zones(x_col='Temperature'):
     """
     Generate a scatter plot chart showing the correlation between a selected column 
@@ -85,7 +89,7 @@ def get_ScatterPlotChart_3Zones(x_col='Temperature'):
         y='PowerConsumption_Zone1',
         title=f'Correlation between {x_col} and Power Consumption',
         labels={x_col: x_col, 'PowerConsumption_Zone1': 'Power Consumption'},
-        opacity=0.7
+        opacity=0.7,
     )
 
     # Update trace for Zone 1 with customdata and legend
@@ -93,7 +97,7 @@ def get_ScatterPlotChart_3Zones(x_col='Temperature'):
         name='Zone 1',
         customdata=DailyData_df['date'],  # Add date as customdata
         showlegend=True,
-        marker=dict(size=8)
+        marker=dict(size=8),
     )
 
     # Add trace for PowerConsumption_Zone2
@@ -104,7 +108,7 @@ def get_ScatterPlotChart_3Zones(x_col='Temperature'):
         name='Zone 2',
         customdata=DailyData_df['date'],
         marker=dict(size=8),
-        showlegend=True
+        showlegend=True,
     )
 
     # Add trace for PowerConsumption_Zone3
@@ -115,7 +119,7 @@ def get_ScatterPlotChart_3Zones(x_col='Temperature'):
         name='Zone 3',
         customdata=DailyData_df['date'],
         marker=dict(size=8),
-        showlegend=True
+        showlegend=True,
     )
 
     # Update layout for legend and axis titles
@@ -135,12 +139,13 @@ def get_ScatterPlotChart_3Zones(x_col='Temperature'):
         ),
         margin=dict(r=200),  # Add right margin to make space for the legend
         xaxis=dict(title=x_col, fixedrange=True),  # Update x-axis title dynamically
-        yaxis=dict(title='Power Consumption', fixedrange=True),  # Update y-axis title and disable zoom
-        dragmode='pan'
+        yaxis=dict(title='Power Consumption(w)', fixedrange=True),  # Update y-axis title and disable zoom
+        dragmode='pan',
     )
 
+    fig.update_traces(marker=dict(symbol='square'))
     # Add hover template at the end
-    hover_template = hover.get_scatterplotchartforenergy_hover_template()
+    hover_template = hover.get_scatterplotchartforenergy_hover_template(x_col)
     fig.update_traces(hovertemplate=hover_template)
 
     return fig

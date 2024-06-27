@@ -3,7 +3,10 @@
 '''
     File name: server.py
     Purpose: Contains the server configuration to run our Dash application.
-    Author: 
+    Authors:
+        - Yuashun Cui - 2404877
+        - Samira Nazari - 2310647
+        - Mohamad Hadi Ajami - 2227105
     Course: INF8808
     Python Version: 3.8
 

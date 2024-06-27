@@ -1,7 +1,10 @@
 '''
     File name: BarChart.py
     Purpose: Contains functions to create bar charts for visualizing power consumption data.
-    Author: 
+    Authors:
+        - Yuashun Cui - 2404877
+        - Samira Nazari - 2310647
+        - Mohamad Hadi Ajami - 2227105
     Course: INF8808
     Python Version: 3.8
 
@@ -11,6 +14,7 @@
 from datetime import datetime
 import plotly.express as px
 import hover_template as hover
+
 
 def to_date_format(HourlyData, date_str):
     """
@@ -28,6 +32,7 @@ def to_date_format(HourlyData, date_str):
     specific_day_data = HourlyData[HourlyData['date'] == date_format]
 
     return specific_day_data
+
 
 def get_bar_chart(HourlyData, date_str):
     """
