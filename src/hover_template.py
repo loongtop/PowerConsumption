@@ -83,8 +83,8 @@ def get_scatterplotchart_hover_template(x_col, y_col):
     y_unit = get_unit(y_col)
 
     hover_template = (
-        f"<span style='font-weight:bold'>{x_col}</span>: %{x:.2f}{x_unit}<br>"
-        f"<span style='font-weight:bold'>{y_col}</span>: %{y:.2f}{y_unit}<br>"
+        f"<span style='font-weight:bold'>{x_col}</span>: ""%{x:.2f}"f"{x_unit}<br>"
+        f"<span style='font-weight:bold'>{y_col}</span>: ""%{y:.2f}"f"{y_unit}<br>"
         "<extra></extra>"
     )
     return hover_template
